@@ -1,5 +1,5 @@
 import { IsString, MaxLength, MinLength } from 'class-validator';
-import {ApiModelProperty} from '@nestjs/swagger';
+import { ApiModelProperty } from '@nestjs/swagger';
 
 export class UserLoginDto {
   @IsString()

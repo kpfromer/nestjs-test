@@ -1,8 +1,7 @@
-import {Token} from 'dto/token.dto';
-import {get} from 'lodash';
+import { Token } from 'dto/token.dto';
+import { get } from 'lodash';
 
 export class RequestContext {
-
   public readonly id: number;
   public request;
   public response: Response;

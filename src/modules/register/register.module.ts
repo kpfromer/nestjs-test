@@ -5,6 +5,6 @@ import { AuthModule } from '../auth/auth.module';
 
 @Module({
   imports: [UserModule, AuthModule],
-  controllers: [RegisterController],
+  controllers: [RegisterController]
 })
 export class RegisterModule {}

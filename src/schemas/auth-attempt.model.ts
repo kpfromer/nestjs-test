@@ -1,4 +1,4 @@
-import {Schema} from 'mongoose';
+import { Schema } from 'mongoose';
 
 export const AuthAttemptSchema = new Schema({
   // TODO: remove email and link to attempted user id (so if user changes email)

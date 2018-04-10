@@ -7,7 +7,7 @@ import {
   IsDateString,
   IsInt
 } from 'class-validator';
-import {ApiModelProperty} from '@nestjs/swagger';
+import { ApiModelProperty } from '@nestjs/swagger';
 
 export class TaskDto {
   @IsString()

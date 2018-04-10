@@ -3,18 +3,18 @@ import {
   Controller,
   HttpException,
   HttpStatus,
-  Post,
+  Post
 } from '@nestjs/common';
 import { AuthService } from '../auth/auth.service';
 import { UserService } from '../user/user.service';
-import {UserDto} from 'dto/user.dto';
-import {IUser} from 'interfaces/user.interface';
+import { UserDto } from 'dto/user.dto';
+import { IUser } from 'interfaces/user.interface';
 
 @Controller('register')
 export class RegisterController {
   constructor(
     private readonly authService: AuthService,
-    private readonly userService: UserService,
+    private readonly userService: UserService
   ) {}
 
   @Post()

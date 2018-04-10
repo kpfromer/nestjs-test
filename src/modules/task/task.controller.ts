@@ -6,13 +6,13 @@ import {
   Param,
   Post,
   Put,
-  Req,
-  } from '@nestjs/common';
+  Req
+} from '@nestjs/common';
 import { TaskService } from './task.service';
 import { TaskDto } from '../../dto/task.dto';
 import { IsObjectIdPipe } from '../../pipes/is-objectid.pipe';
 import { IsNotArrayPipe } from '../../pipes/is-not-array.pipe';
-import {ApiBearerAuth} from '@nestjs/swagger';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
 @ApiBearerAuth()
 @Controller('task')
@@ -27,7 +27,7 @@ export class TaskController {
   @Get(':id')
   async getById(
     @Param(new IsObjectIdPipe())
-    id: string,
+    id: string
   ) {
     return await this.service.getTaskById(id);
   }
@@ -35,7 +35,7 @@ export class TaskController {
   @Post()
   async createTask(
     @Body(new IsNotArrayPipe())
-    task: TaskDto,
+    task: TaskDto
   ) {
     return await this.service.createTask(task);
   }
@@ -45,7 +45,7 @@ export class TaskController {
     @Param(new IsObjectIdPipe())
     id: string,
     @Body(new IsNotArrayPipe())
-    task: TaskDto,
+    task: TaskDto
   ) {
     return await this.service.updateById(id, task);
   }
@@ -53,7 +53,7 @@ export class TaskController {
   @Delete(':id')
   async deleteTask(
     @Param(new IsObjectIdPipe())
-    id: string,
+    id: string
   ) {
     return await this.service.deleteTaskById(id);
   }

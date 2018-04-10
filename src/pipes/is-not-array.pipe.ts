@@ -1,4 +1,9 @@
-import {ArgumentMetadata, BadRequestException, Pipe, PipeTransform} from '@nestjs/common';
+import {
+  ArgumentMetadata,
+  BadRequestException,
+  Pipe,
+  PipeTransform
+} from '@nestjs/common';
 
 @Pipe()
 export class IsNotArrayPipe implements PipeTransform<any> {

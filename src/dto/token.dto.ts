@@ -1,5 +1,5 @@
-import {IsString, IsMongoId} from 'class-validator';
-import {ApiModelProperty} from '@nestjs/swagger';
+import { IsString, IsMongoId } from 'class-validator';
+import { ApiModelProperty } from '@nestjs/swagger';
 
 export class Token {
   @IsMongoId()

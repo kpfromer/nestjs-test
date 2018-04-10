@@ -1,6 +1,6 @@
-import {Document} from 'mongoose';
+import { Document } from 'mongoose';
 
-export interface IAuthAttempt extends Document{
+export interface IAuthAttempt extends Document {
   username: string;
   ip: string;
   time: Date;

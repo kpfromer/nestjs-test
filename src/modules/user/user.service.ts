@@ -7,7 +7,7 @@ import { IUser } from 'interfaces/user.interface';
 @Component()
 export class UserService {
   constructor(
-    @InjectModel(UserSchema) private readonly userModel: Model<IUser>,
+    @InjectModel(UserSchema) private readonly userModel: Model<IUser>
   ) {}
 
   async register(newUser: IUser): Promise<IUser> {

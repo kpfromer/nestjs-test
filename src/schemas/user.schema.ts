@@ -5,21 +5,50 @@ import * as Config from 'config';
 
 const validator = new Validator();
 
+// TODO: use typegoose instead of regular mongoose
 export const UserSchema = new Schema({
   username: {
     type: String,
     required: true,
-    unique: true,
+    unique: true
   },
   password: {
     type: String,
-    required: true,
+    required: true
   },
   email: {
     type: String,
     required: true,
-    validate: email => validator.isEmail(email),
-  },
+    validate: email => validator.isEmail(email)
+  }
+  // resetPassword: {
+  //   token: {
+  //     allowOnCreate: false,
+  //     allowOnUpdate: false,
+  //     exclude: true,
+  //     type: String
+  //   },
+  //   expires: {
+  //     allowOnCreate: false,
+  //     allowOnUpdate: false,
+  //     exclude: true,
+  //     type: Date
+  //   }
+  // },
+  // activateAccount: {
+  //   token: {
+  //     allowOnCreate: false,
+  //     allowOnUpdate: false,
+  //     exclude: true,
+  //     type: String
+  //   },
+  //   expires: {
+  //     allowOnCreate: false,
+  //     allowOnUpdate: false,
+  //     exclude: true,
+  //     type: Date
+  //   }
+  // }
 });
 
 UserSchema.methods.matchPassword = async function(password: string) {

@@ -1,7 +1,7 @@
 import * as jwt from 'jsonwebtoken';
 import { Component } from '@nestjs/common';
 import { UserService } from '../user/user.service';
-import {Token} from 'dto/token.dto';
+import { Token } from 'dto/token.dto';
 import * as Config from 'config';
 
 @Component()
@@ -15,7 +15,7 @@ export class AuthService {
     const token = jwt.sign(user, secretOrKey, { expiresIn });
     return {
       expires_in: expiresIn,
-      access_token: token,
+      access_token: token
     };
   }
 
