@@ -23,11 +23,11 @@ const config = {
   //   medium: '30m',
   //   long: '4h'
   // },
-  // authAttempts: {
-  //   forIp: 50,
-  //   forIpAndUser: 7
-  // },
-  // lockOutPeriod: 30, //in units of minutes
+  authAttempts: {
+    forIp: 50,
+    forIpAndUser: 7
+  },
+  lockOutPeriod: '30m',
   jwtSecret: {
     $filter: 'env',
     production: process.env.JWT_SECRET,

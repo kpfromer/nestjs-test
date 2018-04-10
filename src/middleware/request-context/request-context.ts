@@ -1,4 +1,5 @@
-import {Token} from '../../dto/token.dto';
+import {Token} from 'dto/token.dto';
+import {get} from 'lodash';
 
 export class RequestContext {
 
@@ -29,8 +30,19 @@ export class RequestContext {
   public static currentUser(): Token {
     const requestContext = RequestContext.currentRequestContext();
 
+    // TODO: kiss
     if (requestContext) {
       return requestContext.request.user;
+    }
+
+    return null;
+  }
+
+  public static currentIp(): string {
+    const requestContext = RequestContext.currentRequestContext();
+
+    if (requestContext) {
+      return get(requestContext, 'request.info.ip');
     }
 
     return null;
