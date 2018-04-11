@@ -16,7 +16,7 @@ export class RequestContext {
     return Zone.current.get(RequestContext.name);
   }
 
-  public static currentRequest(): Request {
+  public static currentRequest() {
     const requestContext = RequestContext.currentRequestContext();
 
     if (requestContext) {
@@ -27,23 +27,14 @@ export class RequestContext {
   }
 
   public static currentUser(): Token {
-    const requestContext = RequestContext.currentRequestContext();
+    const request = RequestContext.currentRequest();
 
-    // TODO: kiss
-    if (requestContext) {
-      return requestContext.request.user;
-    }
-
-    return null;
+    return get(request, 'user', null);
   }
 
   public static currentIp(): string {
-    const requestContext = RequestContext.currentRequestContext();
+    const request = RequestContext.currentRequest();
 
-    if (requestContext) {
-      return get(requestContext, 'request.info.ip');
-    }
-
-    return null;
+    return get(request, 'info.ip', null);
   }
 }
