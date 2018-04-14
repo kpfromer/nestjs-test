@@ -29,16 +29,24 @@ export class LoginController {
       );
     }
 
-    if (await this.userService.isUser(user.username, user.password)) {
-      const userModel = await this.userService.findByUsername(user.username);
-      return await this.authService.createToken(userModel._id, user.username);
+    const userModel = await this.userService.getValidUser(user.username, user.password);
+
+    if (!userModel) {
+      await this.authAttemptService.addAttempt(user.username);
+
+      throw new HttpException(
+        'Username/password do not match',
+        HttpStatus.BAD_REQUEST
+      );
     }
 
-    await this.authAttemptService.addAttempt(user.username);
+    if (!userModel.isActive) {
+      throw new HttpException(
+        'Inactive user. You must authenticate using your email.',
+        HttpStatus.BAD_REQUEST
+      );
+    }
 
-    throw new HttpException(
-      'Username/password do not match',
-      HttpStatus.BAD_REQUEST
-    );
+    return await this.authService.createToken(userModel._id, user.username);
   }
 }

@@ -5,5 +5,10 @@ export interface IUser extends Document {
   username: string;
   password: string;
   email: string;
+  firstName: string;
+  lastName: string;
+  isActive: boolean;
+  activateAccount: { token: string; expires: Date };
+
   matchPassword(password: string): Promise<boolean>;
 }

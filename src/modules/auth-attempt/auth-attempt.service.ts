@@ -7,10 +7,7 @@ import * as Config from 'config';
 import * as ms from 'ms';
 import { RequestContext } from 'middleware/request-context/request-context';
 
-const lockOutPeriod = ms(Config.get('/lockOutPeriod'));
-const expirationDate = lockOutPeriod
-  ? { $gt: lockOutPeriod }
-  : { $lt: Date.now() };
+const expirationDate = {$gt: new Date()};
 
 @Component()
 export class AuthAttemptService {
@@ -39,6 +36,7 @@ export class AuthAttemptService {
   async isAbuse(username: string): Promise<boolean> {
     const ip = RequestContext.currentIp();
 
+    // TODO: find more efficient way of seeing if user is abusive
     const ipAttemptCount = await this.getIpAttemptCount(ip);
     const ipAndUsernameAttemptCount = await this.getIpAndUsernameAttemptCount(
       ip,

@@ -2,6 +2,7 @@ import * as Confidence from 'confidence';
 
 const constants = {
   APP_TITLE: 'Testing App',
+  CLIENT_URL: 'https://testing.com',
   PORT: 3000,
   VERSION: 'v1',
   SWAGGER_LOCATION: 'swagger'
@@ -11,6 +12,7 @@ const config = {
   $meta: 'This file configures the appy API.',
   projectName: constants.APP_TITLE,
   websiteName: 'testing',
+  clientURL: constants.CLIENT_URL,
   version: constants.VERSION,
   swaggerUrl: constants.SWAGGER_LOCATION,
   port: {
@@ -42,6 +44,38 @@ const config = {
     $filter: 'env',
     production: process.env.SALT_NUMBER,
     $default: 10
+  },
+  emailVerification: {
+    fromAddress: {
+      $filter: 'env',
+      production: process.env.WEBSITE_EMAIL,
+      $default: 'website@email.com'
+    },
+    emailTokenExpiration: {
+      $filter: 'env',
+      production: process.env.EMAIL_TOKEN_EXPIRATION,
+      $default: '30m'
+    },
+  },
+  nodemailer: {
+    $filter: 'env',
+    production: {
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: true,
+      auth: {
+        user: 'appyhapi@gmail.com',
+        pass: process.env.SMTP_PASSWORD
+      }
+    },
+    $default: {
+      host: 'smtp.ethereal.email',
+      port: 587,
+      auth: {
+        user: process.env.DEV_EMAIL,
+        pass: process.env.DEV_EMAIL_PASSWORD
+      }
+    }
   }
 };
 const criteria = {

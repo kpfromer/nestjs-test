@@ -2,6 +2,10 @@ import { Schema } from 'mongoose';
 import { Validator } from 'class-validator';
 import * as bcrypt from 'bcrypt';
 import * as Config from 'config';
+import * as ms from 'ms';
+import * as uuid from 'uuid/v4';
+import { get } from 'lodash';
+import * as moment from 'moment';
 
 const validator = new Validator();
 
@@ -21,31 +25,37 @@ export const UserSchema = new Schema({
     type: String,
     required: true,
     validate: email => validator.isEmail(email)
+  },
+  firstName: {
+    type: String,
+    required: true
+  },
+  lastName: {
+    type: String,
+    required: true
+  },
+  isActive: {
+    type: Boolean,
+    required: true,
+    default: false
+  },
+  activateAccount: {
+    token: {
+      exclude: true,
+      type: String
+    },
+    expires: {
+      exclude: true,
+      type: Date,
+      default: moment().add(ms(Config.get('/emailVerification/emailTokenExpiration')), 'ms')
+    }
   }
   // resetPassword: {
   //   token: {
-  //     allowOnCreate: false,
-  //     allowOnUpdate: false,
   //     exclude: true,
   //     type: String
   //   },
   //   expires: {
-  //     allowOnCreate: false,
-  //     allowOnUpdate: false,
-  //     exclude: true,
-  //     type: Date
-  //   }
-  // },
-  // activateAccount: {
-  //   token: {
-  //     allowOnCreate: false,
-  //     allowOnUpdate: false,
-  //     exclude: true,
-  //     type: String
-  //   },
-  //   expires: {
-  //     allowOnCreate: false,
-  //     allowOnUpdate: false,
   //     exclude: true,
   //     type: Date
   //   }
@@ -58,4 +68,8 @@ UserSchema.methods.matchPassword = async function(password: string) {
 
 UserSchema.pre('save', async function() {
   this.password = await bcrypt.hash(this.password, Config.get('/saltNumber'));
+
+  if (!get(this, 'activateAccount.token')) {
+    this.activateAccount.token = uuid();
+  }
 });

@@ -17,4 +17,16 @@ export class UserDto {
   @IsEmail()
   @ApiModelProperty()
   readonly email: string;
+
+  @IsString()
+  @MinLength(2)
+  @MaxLength(30)
+  @ApiModelProperty()
+  readonly firstName: string;
+
+  @IsString()
+  @MinLength(2)
+  @MaxLength(30)
+  @ApiModelProperty()
+  readonly lastName: string;
 }
