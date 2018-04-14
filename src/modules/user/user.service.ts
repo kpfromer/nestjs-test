@@ -25,8 +25,6 @@ export class UserService {
       'activateAccount.expires': { $gt: moment() }
     };
 
-    console.log(condition);
-
     const setActive = {
       $set: {
         isActive: true
