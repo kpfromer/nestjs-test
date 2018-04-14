@@ -14,7 +14,8 @@ export const UserSchema = new Schema({
   },
   password: {
     type: String,
-    required: true
+    required: true,
+    exclude: true
   },
   email: {
     type: String,
