@@ -1,10 +1,9 @@
 import { Component } from '@nestjs/common';
-import { IAuthAttempt } from 'interfaces/auth-attempt.interface';
 import * as Config from 'config';
 import { RequestContext } from 'middleware/request-context/request-context';
 import { InjectModel } from 'nestjs-typegoose';
 import { AuthAttempt } from '../../model/auth-attempt.model';
-import { ModelType } from 'typegoose';
+import { ModelType, InstanceType } from 'typegoose';
 
 const expirationDate = {$gt: new Date()};
 

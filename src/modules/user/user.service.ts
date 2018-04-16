@@ -1,5 +1,4 @@
 import { Component } from '@nestjs/common';
-import { IUser } from 'interfaces/user.interface';
 import * as Config from 'config';
 import * as ms from 'ms';
 import { UserDto } from 'dto/user.dto';

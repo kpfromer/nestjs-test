@@ -3,7 +3,6 @@ import * as Config from 'config';
 import { AuthService } from 'modules/auth/auth.service';
 import { EmailService } from 'modules/email/email.service';
 import * as uuid from 'uuid/v4';
-import { IUser } from 'interfaces/user.interface';
 import { InstanceType } from 'typegoose';
 import { User } from '../../model/user.model';
 
