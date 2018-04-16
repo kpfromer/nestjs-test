@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
-import { MongooseModule } from '@nestjs/mongoose';
 import { TaskController } from './task.controller';
 import { TaskService } from './task.service';
-import { TaskSchema } from '../../schemas/task.schema';
 import { LoggedInModule } from '../logged-in/logged-in.module';
+import { TypegooseModule } from 'nestjs-typegoose';
+import { Task } from '../../model/task.model';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: 'Task', schema: TaskSchema }]),
+    TypegooseModule.forFeature(Task),
     LoggedInModule
   ],
   components: [TaskService],

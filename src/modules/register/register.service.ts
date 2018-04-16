@@ -4,6 +4,8 @@ import { AuthService } from 'modules/auth/auth.service';
 import { EmailService } from 'modules/email/email.service';
 import * as uuid from 'uuid/v4';
 import { IUser } from 'interfaces/user.interface';
+import { InstanceType } from 'typegoose';
+import { User } from '../../model/user.model';
 
 @Component()
 export class RegisterService {
@@ -16,7 +18,7 @@ export class RegisterService {
     return uuid();
   }
 
-  async sendWelcomeEmail(user: IUser, id: string) {
+  async sendWelcomeEmail(user: InstanceType<User>, id: string) {
     const emailOptions = {
       subject: `Activate your ${Config.get('/websiteName')} account`,
       to: {

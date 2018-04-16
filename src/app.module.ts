@@ -5,13 +5,12 @@ import { LoginModule } from 'modules/login/login.module';
 import { RegisterModule } from 'modules/register/register.module';
 import { TaskModule } from 'modules/task/task.module';
 import { RequestContextMiddleware } from 'middleware/request-context/request-context.middleware';
-import * as winston from 'winston';
-import * as expressWinston from 'express-winston';
 import { AppController } from 'app.controller';
+import { TypegooseModule } from 'nestjs-typegoose';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost/nestjs-login'),
+    TypegooseModule.forRoot('mongodb://localhost/nestjs-login'),
     LoginModule,
     RegisterModule,
     CatModule,

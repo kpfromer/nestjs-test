@@ -1,28 +1,28 @@
-import { Model } from 'mongoose';
 import { Component } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { UserSchema } from 'schemas/user.schema';
 import { IUser } from 'interfaces/user.interface';
 import * as Config from 'config';
 import * as ms from 'ms';
 import { UserDto } from 'dto/user.dto';
 import * as moment from 'moment';
+import { User } from '../../model/user.model';
+import { InjectModel } from 'nestjs-typegoose';
+import { ModelType, InstanceType } from 'typegoose';
 
 @Component()
 export class UserService {
   constructor(
-    @InjectModel(UserSchema) private readonly userModel: Model<IUser>
+    @InjectModel(User) private readonly userModel: ModelType<User>
   ) {}
 
-  async register(newUser: UserDto): Promise<IUser> {
+  async register(newUser: UserDto): Promise<InstanceType<User>> {
     const createUser = new this.userModel(newUser);
     return await createUser.save();
   }
 
-  async setAsActive(activeId: string) {
+  async setAsActive(activeId: string): Promise<InstanceType<User> | null> {
     const condition = {
       'activateAccount.token': activeId,
-      'activateAccount.expires': { $gt: moment() }
+      'activateAccount.expires': { $gt: moment().toDate() }
     };
 
     const setActive = {
@@ -37,7 +37,7 @@ export class UserService {
     return await this.userModel.findOneAndUpdate(condition, setActive).exec();
   }
 
-  async resetActivateAccount(email: string, id: string) {
+  async resetActivateAccount(email: string, id: string): Promise<InstanceType<User> | null> {
     const activateAccount = {
       token: id,
       expires: moment().add(ms(Config.get('/emailVerification/emailTokenExpiration')), 'ms')
@@ -48,10 +48,10 @@ export class UserService {
       .exec();
   }
 
-  async findByUsername(username: string) {
+  async findByUsername(username: string): Promise<InstanceType<User> | null> {
     return await this.userModel.findOne({ username }).exec();
   }
-  async findByEmail(email: string) {
+  async findByEmail(email: string): Promise<InstanceType<User> | null> {
     return await this.userModel.findOne({ email }).exec();
   }
 
@@ -76,8 +76,7 @@ export class UserService {
     };
   }
 
-  // TODO: make more efficient by also return user (saving one mongo call)
-  async getValidUser(username: string, password: string): Promise<IUser | null> {
+  async getValidUser(username: string, password: string): Promise<InstanceType<User> | null> {
     const user = await this.findByUsername(username);
 
     if (user && await user.matchPassword(password)) {

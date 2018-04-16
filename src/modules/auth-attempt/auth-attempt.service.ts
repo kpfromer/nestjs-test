@@ -1,19 +1,18 @@
 import { Component } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { AuthAttemptSchema } from 'schemas/auth-attempt.model';
-import { Model } from 'mongoose';
 import { IAuthAttempt } from 'interfaces/auth-attempt.interface';
 import * as Config from 'config';
-import * as ms from 'ms';
 import { RequestContext } from 'middleware/request-context/request-context';
+import { InjectModel } from 'nestjs-typegoose';
+import { AuthAttempt } from '../../model/auth-attempt.model';
+import { ModelType } from 'typegoose';
 
 const expirationDate = {$gt: new Date()};
 
 @Component()
 export class AuthAttemptService {
   constructor(
-    @InjectModel(AuthAttemptSchema)
-    private readonly authAttemptModel: Model<IAuthAttempt>
+    @InjectModel(AuthAttempt)
+    private readonly authAttemptModel: ModelType<AuthAttempt>
   ) {}
 
   private async getIpAttemptCount(ip: string): Promise<number> {
