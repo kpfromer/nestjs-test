@@ -1,6 +1,7 @@
 import { Component } from '@nestjs/common';
 import { Document, Model } from 'mongoose';
 import { RequestContext } from '../../middleware/request-context/request-context';
+import { LooseObject } from '../../interface/loose-object.interface';
 
 @Component()
 export class LoggedInService {
@@ -14,15 +15,23 @@ export class LoggedInService {
     return user.id;
   }
 
+  // TODO: add methods for CRUD which can all mongoose default params but attaches userid to the condition
+
+  private attachUserId(condition: LooseObject = {}) {
+    condition.userId = this.getUserId();
+    return condition;
+  }
+
+  // TODO: find better way so that model is not needed constantly
   async getAll<T extends Document>(model: Model<T>): Promise<T[]> {
-    return await model.find({ userId: this.getUserId() }).exec();
+    return await model.find(this.attachUserId()).exec();
   }
 
   async getById<T extends Document>(
     model: Model<T>,
     id: string
   ): Promise<T | null> {
-    return await model.findOne({ _id: id, userId: this.getUserId() }).exec();
+    return await model.findOne(this.attachUserId({ _id: id})).exec();
   }
 
   async create<T extends Document>(model: Model<T>, item): Promise<T> {
@@ -38,13 +47,13 @@ export class LoggedInService {
     delete newModel._id;
     newModel.userId = this.getUserId();
     return await model
-      .update({ _id: id, userId: this.getUserId() }, newModel, {
+      .update(this.attachUserId({_id: id}), newModel, {
         overwrite: true
       })
       .exec();
   }
 
   async deleteById<T extends Document>(model: Model<T>, id: string) {
-    return await model.deleteOne({ _id: id, userId: this.getUserId() }).exec();
+    return await model.deleteOne(this.attachUserId({_id: id})).exec();
   }
 }
