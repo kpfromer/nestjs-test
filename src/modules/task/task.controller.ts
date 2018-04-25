@@ -1,21 +1,14 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Post,
-  Put,
-  Req
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Req, UseGuards } from '@nestjs/common';
 import { TaskService } from './task.service';
 import { TaskDto } from '../../dto/task.dto';
 import { IsObjectIdPipe } from '../../pipes/is-objectid.pipe';
 import { IsNotArrayPipe } from '../../pipes/is-not-array.pipe';
 import { ApiBearerAuth } from '@nestjs/swagger';
+import { AuthGuard } from '../auth/passport/auth.guard';
 
 @ApiBearerAuth()
 @Controller('task')
+@UseGuards(AuthGuard('jwt'))
 export class TaskController {
   constructor(private readonly service: TaskService) {}
 
