@@ -13,9 +13,6 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  const baseUrl = `/${Config.get('/version')}`;
-
-  app.setGlobalPrefix(baseUrl);
   app.useGlobalPipes(new ValidationPipe());
 
   const options = new DocumentBuilder()
@@ -23,7 +20,7 @@ async function bootstrap() {
     .setDescription('The cats API description')
     .setVersion(Config.get('/version'))
     .addBearerAuth('Authorization', 'header')
-    .setBasePath(baseUrl)
+    .setBasePath('v1')
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup(`/${Config.get('/swaggerUrl')}`, app, document);
