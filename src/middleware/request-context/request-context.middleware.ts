@@ -1,7 +1,7 @@
 import { RequestContext } from './request-context';
-import { Middleware, NestMiddleware } from '@nestjs/common';
+import { Injectable, Middleware, NestMiddleware } from '@nestjs/common';
 
-@Middleware()
+@Injectable()
 export class RequestContextMiddleware implements NestMiddleware {
   resolve() {
     return (req, res, next) => {

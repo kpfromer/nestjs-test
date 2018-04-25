@@ -10,7 +10,7 @@ import { Task } from '../../model/task.model';
     TypegooseModule.forFeature(Task),
     LoggedInModule
   ],
-  components: [TaskService],
+  providers: [TaskService],
   controllers: [TaskController]
 })
 export class TaskModule {}

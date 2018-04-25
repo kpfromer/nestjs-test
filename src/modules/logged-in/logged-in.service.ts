@@ -1,14 +1,15 @@
-import { Component } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Document, Model } from 'mongoose';
 import { RequestContext } from '../../middleware/request-context/request-context';
 import { LooseObject } from '../../interface/loose-object.interface';
 
-@Component()
+@Injectable()
 export class LoggedInService {
   constructor() {}
 
   private getUserId(): string {
     const user = RequestContext.currentUser();
+    console.log('user', user);
     if (!user || !user.id) {
       throw new Error('No user id or user!');
     }
@@ -25,6 +26,10 @@ export class LoggedInService {
   // TODO: find better way so that model is not needed constantly
   async getAll<T extends Document>(model: Model<T>): Promise<T[]> {
     return await model.find(this.attachUserId()).exec();
+  }
+
+  async getAllWithCondition<T extends Document>(model: Model<T>, conditions: LooseObject): Promise<T[]> {
+    return await model.find(this.attachUserId(conditions)).exec();
   }
 
   async getById<T extends Document>(

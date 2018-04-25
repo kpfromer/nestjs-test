@@ -1,4 +1,4 @@
-import { Component } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import * as Config from 'config';
 import { AuthService } from 'modules/auth/auth.service';
 import { EmailService } from 'modules/email/email.service';
@@ -6,7 +6,7 @@ import * as uuid from 'uuid/v4';
 import { InstanceType } from 'typegoose';
 import { User } from '../../model/user.model';
 
-@Component()
+@Injectable()
 export class RegisterService {
   constructor(
     private readonly authService: AuthService,

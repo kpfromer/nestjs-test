@@ -1,4 +1,4 @@
-import { Component } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import * as Config from 'config';
 import { RequestContext } from 'middleware/request-context/request-context';
 import { InjectModel } from 'nestjs-typegoose';
@@ -7,7 +7,7 @@ import { ModelType, InstanceType } from 'typegoose';
 
 const expirationDate = {$gt: new Date()};
 
-@Component()
+@Injectable()
 export class AuthAttemptService {
   constructor(
     @InjectModel(AuthAttempt)
@@ -47,7 +47,7 @@ export class AuthAttemptService {
     );
   }
 
-  async addAttempt(username: string): Promise<IAuthAttempt> {
+  async addAttempt(username: string): Promise<InstanceType<AuthAttempt>> {
     return await this.authAttemptModel.create({
       ip: RequestContext.currentIp(),
       username: username.toLocaleLowerCase(),

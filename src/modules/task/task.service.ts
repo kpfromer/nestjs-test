@@ -1,11 +1,11 @@
-import { Component } from '@nestjs/common';
 import { TaskDto } from '../../dto/task.dto';
 import { LoggedInService } from '../logged-in/logged-in.service';
 import { InjectModel } from 'nestjs-typegoose';
 import { Task } from '../../model/task.model';
 import { ModelType, InstanceType } from 'typegoose';
+import { Injectable } from '@nestjs/common';
 
-@Component()
+@Injectable()
 export class TaskService {
   constructor(
     @InjectModel(Task) private readonly taskModel: ModelType<Task>,

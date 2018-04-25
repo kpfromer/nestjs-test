@@ -1,13 +1,11 @@
 import {
   ArgumentMetadata,
-  BadRequestException,
-  Pipe,
+  BadRequestException, Injectable,
   PipeTransform
 } from '@nestjs/common';
 
 import { Validator } from 'class-validator';
 
-@Pipe()
 export class IsObjectIdPipe implements PipeTransform<any> {
   constructor(private readonly property: string = 'id') {}
   transform(value: any, metadata: ArgumentMetadata): any {

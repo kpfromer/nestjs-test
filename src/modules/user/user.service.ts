@@ -1,4 +1,3 @@
-import { Component } from '@nestjs/common';
 import * as Config from 'config';
 import * as ms from 'ms';
 import { UserDto } from 'dto/user.dto';
@@ -6,8 +5,9 @@ import * as moment from 'moment';
 import { User } from '../../model/user.model';
 import { InjectModel } from 'nestjs-typegoose';
 import { ModelType, InstanceType } from 'typegoose';
+import { Injectable } from '@nestjs/common';
 
-@Component()
+@Injectable()
 export class UserService {
   constructor(
     @InjectModel(User) private readonly userModel: ModelType<User>

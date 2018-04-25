@@ -5,7 +5,7 @@ import { AuthAttempt } from '../../model/auth-attempt.model';
 
 @Module({
   imports: [TypegooseModule.forFeature(AuthAttempt)],
-  components: [AuthAttemptService],
+  providers: [AuthAttemptService],
   exports: [AuthAttemptService]
 })
 export class AuthAttemptModule {}

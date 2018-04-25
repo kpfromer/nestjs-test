@@ -1,11 +1,9 @@
 import {
   ArgumentMetadata,
-  BadRequestException,
-  Pipe,
+  BadRequestException, Injectable,
   PipeTransform
 } from '@nestjs/common';
 
-@Pipe()
 export class IsNotArrayPipe implements PipeTransform<any> {
   transform(value: any, metadata: ArgumentMetadata): any {
     const { metatype } = metadata;
