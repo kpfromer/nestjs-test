@@ -1,17 +1,10 @@
-import {
-  Body,
-  Controller,
-  HttpCode,
-  HttpException,
-  HttpStatus,
-  Post
-} from '@nestjs/common';
+import { Body, Controller, HttpCode, HttpException, HttpStatus, Post } from '@nestjs/common';
 import { AuthService } from 'modules/auth/auth.service';
 import { UserService } from 'modules/user/user.service';
 import { UserLoginDto } from 'dto/user-login.dto';
 import { AuthAttemptService } from 'modules/auth-attempt/auth-attempt.service';
 
-@Controller('login')
+@Controller()
 export class LoginController {
   constructor(
     private readonly authService: AuthService,

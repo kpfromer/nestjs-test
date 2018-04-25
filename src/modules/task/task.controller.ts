@@ -7,7 +7,7 @@ import { ApiBearerAuth } from '@nestjs/swagger';
 import { AuthGuard } from '../auth/passport/auth.guard';
 
 @ApiBearerAuth()
-@Controller('task')
+@Controller()
 @UseGuards(AuthGuard('jwt'))
 export class TaskController {
   constructor(private readonly service: TaskService) {}

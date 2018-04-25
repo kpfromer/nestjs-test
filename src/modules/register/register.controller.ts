@@ -1,13 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  HttpCode,
-  HttpException,
-  HttpStatus,
-  Post,
-  Query
-} from '@nestjs/common';
+import { Body, Controller, HttpCode, HttpException, HttpStatus, Post } from '@nestjs/common';
 import { AuthService } from '../auth/auth.service';
 import { UserService } from '../user/user.service';
 import { UserDto } from 'dto/user.dto';
@@ -15,7 +6,7 @@ import { RegisterService } from 'modules/register/register.service';
 import { ResendActivationDto } from 'dto/resend-activation.dto';
 import { ActivateTokenDto } from 'dto/activate-token.dto';
 
-@Controller('register')
+@Controller()
 export class RegisterController {
   constructor(
     private readonly service: RegisterService,
