@@ -1,5 +1,6 @@
 import { prop, Ref, Typegoose } from 'typegoose';
 import { User } from './user.model';
+import { Project } from './project.model';
 
 export class Task extends Typegoose {
 
@@ -9,8 +10,8 @@ export class Task extends Typegoose {
   @prop({required: true})
   complete: boolean;
 
-  // @prop()
-  // project: Ref<Project>;
+  @prop({ref: Project})
+  project: Ref<Project>;
 
   @prop({default: 0})
   priority: number;
