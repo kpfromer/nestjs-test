@@ -1,10 +1,10 @@
 import * as jwt from 'jsonwebtoken';
-import { Component } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { UserService } from '../user/user.service';
 import { Token } from 'dto/token.dto';
 import * as Config from 'config';
 
-@Component()
+@Injectable()
 export class AuthService {
   constructor(private readonly userService: UserService) {}
 
